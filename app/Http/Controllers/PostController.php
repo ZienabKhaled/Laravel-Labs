@@ -92,7 +92,7 @@ public function __construct()
 public function destroy($postId)
 {
 
-    return view('posts.index' ,['posts' =>self::$allPosts ],['postId'=> $postId]);
-    // return redirect()->route('posts.index');
+    // return view('posts.index' ,['posts' =>self::$allPosts ],['postId'=> $postId]);
+    return redirect()->route('posts.index');
 }
 }

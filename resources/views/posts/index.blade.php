@@ -27,8 +27,14 @@
                 <td>
                     <a href="{{route('posts.show', $post['id'])}}" class="btn btn-info">View</a>
                     <a href="{{route('posts.update', $post['id'])}}" class="btn btn-primary">Edit</a>
-                    <form method="destroy" action="/posts">
+                    {{-- <form method="destroy" action="/posts">
+                        @csrf
                     <a href="{{route('posts.destroy', $post['id'])}}" class="btn btn-danger">Delete</a>
+                </form> --}}
+                <form action="{{ route('posts.destroy', $post['id']) }}" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <input type="submit" value="Delete" class="delete-post">
                 </form>
                 </td>
             </tr>
