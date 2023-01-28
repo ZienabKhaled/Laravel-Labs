@@ -1,7 +1,5 @@
 @extends('layouts.app')
-
 @section('title') index @endsection
-
 @section('content')
     <div class="text-center">
         <a href="{{route('posts.create')}}" class="mt-4 btn btn-success">Create Post</a>
@@ -20,18 +18,15 @@
         </tr>
         </thead>
         <tbody>
-
         @foreach($posts as $post)
-{{--            @dd($post)--}}
             <tr>
                 <td>{{$post['id']}}</td>
                 <td>{{$post['title']}}</td>
                 <td>{{$post['posted_by']}}</td>
                 <td>{{$post['created_at']}}</td>
                 <td>
-{{--                    href="/posts/{{$post['id']}}"--}}
                     <a href="{{route('posts.show', $post['id'])}}" class="btn btn-info">View</a>
-                    <a href="#" class="btn btn-primary">Edit</a>
+                    <a href="{{route('posts.update', $post['id'])}}" class="btn btn-primary">Edit</a>
                     <a href="#" class="btn btn-danger">Delete</a>
                 </td>
             </tr>

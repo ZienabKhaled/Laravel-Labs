@@ -17,11 +17,8 @@
         </div>
         <div class="mb-3">
             <label class="form-check-label">Post Creator</label>
+            <input type="text" class="form-control" >
 
-            <select class="form-control">
-                <option>Ahmed</option>
-                <option>Mohamed</option>
-            </select>
         </div>
         <button type="submit" class="btn btn-success">Submit</button>
     </form>
