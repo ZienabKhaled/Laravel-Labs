@@ -89,4 +89,10 @@ public function __construct()
 
         return view('posts.update',['posts' =>self::$allPosts ],['postId'=> $postId]);
 }
+public function destroy($postId)
+{
+
+    return view('posts.index' ,['posts' =>self::$allPosts ],['postId'=> $postId]);
+    // return redirect()->route('posts.index');
+}
 }
