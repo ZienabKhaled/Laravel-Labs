@@ -20,6 +20,8 @@
             <input type="text" class="form-control" >
 
         </div>
+                            {{-- <a href="{{route('posts.update', $post['id'])}}" class="btn btn-primary">Edit</a> --}}
+
         <button type="submit" class="btn btn-success">Submit</button>
     </form>
 @endsection

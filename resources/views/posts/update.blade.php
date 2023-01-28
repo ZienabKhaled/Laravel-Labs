@@ -8,7 +8,7 @@
 
         @foreach($posts as $post)
         @if($post['id']==$postId)
-        <div class="mb-3">
+        <div class="mb-3" style="margin-top: 20px">
             <label class="form-label">Title</label>
             <input type="text" class="form-control" value="{{$post['title']}}" >
         </div>

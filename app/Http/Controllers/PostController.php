@@ -6,26 +6,63 @@ use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
+
+    private static $allPosts= [
+        [
+            'id' => 1,
+            'title' => 'laravel',
+            'description' => 'hello this is laravel post',
+            'posted_by' => 'Ahmed',
+            'created_at' => '2022-01-28 10:05:00',
+        ],
+        [
+            'id' => 2,
+            'title' => 'php',
+            'description' => 'hello this is php post',
+            'posted_by' => 'Mohamed',
+            'created_at' => '2022-01-30 10:05:00',
+        ],
+        [
+            'id' => 3,
+            'title' => 'CSS',
+            'description' => 'CSS is the styling of a web page ',
+            'posted_by' => 'Zienab',
+            'created_at' => '2023-01-28 21:58:00',
+        ],
+    ];
+private static $allposts = [];
+public function __construct()
+{
+    self:: $allPosts = [
+        [
+            'id' => 1,
+            'title' => 'laravel',
+            'description' => 'hello this is laravel post',
+            'posted_by' => 'Ahmed',
+            'created_at' => '2022-01-28 10:05:00',
+        ],
+        [
+            'id' => 2,
+            'title' => 'php',
+            'description' => 'hello this is php post',
+            'posted_by' => 'Mohamed',
+            'created_at' => '2022-01-30 10:05:00',
+        ],
+        [
+            'id' => 3,
+            'title' => 'CSS',
+            'description' => 'CSS is the styling of a web page ',
+            'posted_by' => 'Zienab',
+            'created_at' => '2023-01-28 21:58:00',
+        ],
+    ];
+}
+
+
     public function index()
     {
-        $allPosts = [
-            [
-                'id' => 1,
-                'title' => 'laravel',
-                'description' => 'hello this is laravel post',
-                'posted_by' => 'Ahmed',
-                'created_at' => '2022-01-28 10:05:00',
-            ],
-            [
-                'id' => 2,
-                'title' => 'php',
-                'description' => 'hello this is php post',
-                'posted_by' => 'Mohamed',
-                'created_at' => '2022-01-30 10:05:00',
-            ],
-        ];
         return view('posts.index',[
-            'posts' => $allPosts,
+            'posts' => self::$allPosts,
         ]);
     }
 
@@ -36,48 +73,20 @@ class PostController extends Controller
 
     public function store()
     {
-        return 'insert in database';
+        return view('posts.index',[
+            'posts' => self::$allPosts,
+        ]);
     }
 
     public function show($postId)
     {
-        $allPosts = [
-            [
-                'id' => 1,
-                'title' => 'laravel',
-                'description' => 'hello this is laravel post',
-                'posted_by' => 'Ahmed',
-                'created_at' => '2022-01-28 10:05:00',
-            ],
-            [
-                'id' => 2,
-                'title' => 'php',
-                'description' => 'hello this is php post',
-                'posted_by' => 'Mohamed',
-                'created_at' => '2022-01-30 10:05:00',
-            ],
-        ];
-        return view('posts.show' ,['posts' =>$allPosts ],['postId'=> $postId]);
+
+        return view('posts.show' ,['posts' =>self::$allPosts ],['postId'=> $postId]);
     }
 
     public function edit($postId)
     {
-        $allPosts = [
-            [
-                'id' => 1,
-                'title' => 'laravel',
-                'description' => 'hello this is laravel post',
-                'posted_by' => 'Ahmed',
-                'created_at' => '2022-01-28 10:05:00',
-            ],
-            [
-                'id' => 2,
-                'title' => 'php',
-                'description' => 'hello this is php post',
-                'posted_by' => 'Mohamed',
-                'created_at' => '2022-01-30 10:05:00',
-            ],
-        ];
-        return view('posts.update',['posts' =>$allPosts ],['postId'=> $postId]);
+
+        return view('posts.update',['posts' =>self::$allPosts ],['postId'=> $postId]);
 }
 }
