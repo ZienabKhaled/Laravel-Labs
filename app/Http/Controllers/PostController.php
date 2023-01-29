@@ -1,8 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\User;
 use Carbon\Carbon;
+use App\Models\User;
 use App\Models\Post;
 use Illuminate\Http\Request;
 
@@ -46,6 +46,12 @@ class PostController extends Controller
         return to_route('posts.index');
     }
 
+    public function archive ($postId){
+        $post = Post::onlyTrashed ($postId);
+        $post -> archive();
+        return view('posts.archive',['post' =>$post ]);
+
+    }
 
     public function show($postId)
     {
@@ -67,12 +73,11 @@ public function destroy($postId)
     $post->delete();
     return redirect()->route('posts.index');
 }
-public function restore($postId)
-    {
-        // restore the post
-        Post::withTrashed()->find($postId)->restore();
 
-        // redirect to index page route
+public function restore($postId)
+     {
+
+        Post::withTrashed()->find($postId)->restore();
         return redirect()->route('posts.index');
-    }
+     }
 }

@@ -31,4 +31,4 @@ Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
 
  Route::delete('/posts/{post}', [PostController::class, 'destroy'])->name('posts.destroy');
 
-//  Route::patch('/posts/{post}', [PostController::class, 'restore'])->name('posts.restore');
+ Route::patch('/posts/{post}', [PostController::class, 'restore'])->name('posts.restore');
