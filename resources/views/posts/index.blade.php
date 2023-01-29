@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title') index @endsection
+@section('title') Index @endsection
 @section('content')
     <div class="text-center">
         <a href="{{route('posts.create')}}" class="mt-4 btn btn-success">Create Post</a>
@@ -20,18 +20,14 @@
         <tbody>
         @foreach($posts as $post)
             <tr>
-                <td>{{$post['id']}}</td>
-                <td>{{$post['title']}}</td>
-                <td>{{$post['posted_by']}}</td>
-                <td>{{$post['created_at']}}</td>
+                <td>{{$post->id}}</td>
+                <td>{{$post->title}}</td>
+                <td>{{$post->user->name ?? 'Not Found'}}</td>
+                <td>{{$post->created_at->format('20y-m-d')}}</td>
                 <td>
-                    <a href="{{route('posts.show', $post['id'])}}" class="btn btn-info">View</a>
-                    <a href="{{route('posts.update', $post['id'])}}" class="btn btn-primary">Edit</a>
-                    {{-- <form method="destroy" action="/posts">
-                        @csrf
-                    <a href="{{route('posts.destroy', $post['id'])}}" class="btn btn-danger">Delete</a>
-                </form> --}}
-                <form action="{{ route('posts.destroy', $post['id']) }}" method="POST">
+                    <a href="{{route('posts.show', $post->id)}}" class="btn btn-info">View</a>
+                    <a href="{{route('posts.update',$post->id)}}" class="btn btn-primary">Edit</a>
+                <form action="{{ route('posts.destroy', $post->id)}}" method="POST">
                     @csrf
                     @method('DELETE')
                     <input type="submit" value="Delete" class="delete-post">

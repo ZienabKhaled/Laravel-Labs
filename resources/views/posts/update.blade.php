@@ -6,28 +6,29 @@
  <form method="POST" action="/posts">
         @csrf
 
-        @foreach($posts as $post)
-        @if($post['id']==$postId)
         <div class="mb-3" style="margin-top: 20px">
             <label class="form-label">Title</label>
-            <input type="text" class="form-control" value="{{$post['title']}}" >
+            <input type="text" name="title" class="form-control" value="{{$post->title}}" >
         </div>
         <div class="mb-3">
             <label  class="form-label">Description</label>
             <textarea
                 class="form-control"
-            >{{ $post['description'] }}</textarea>
+                name="description"
+            >{{$post->description}}</textarea>
         </div>
 
             <div class="mb-3">
                 <label class="form-label">Creator</label>
-                <input type="text" class="form-control" value="{{$post['posted_by']}}" >
+                <select name="post_creator" class="form-control">
+                    @foreach($users as $user)
+                        <option value="{{$user->id}}">{{$user->name}}</option>
+                    @endforeach
+
+                </select>
             </div>
 
-
         <button type="submit" class="btn btn-success">Update</button>
-        @endif
-        @endforeach
-    </form>
+ </form>
 
 @endsection

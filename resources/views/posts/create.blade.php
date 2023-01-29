@@ -1,26 +1,31 @@
 @extends('layouts.app')
 
-@section('title') create @endsection
+@section('title')Create @endsection
 
 @section('content')
  <form method="POST" action="/posts">
         @csrf
         <div class="mb-3">
             <label class="form-label">Title</label>
-            <input type="text" class="form-control" >
+            <input name="title" type="text" class="form-control" >
         </div>
         <div class="mb-3">
             <label  class="form-label">Description</label>
             <textarea
                 class="form-control"
+                name="description"
             ></textarea>
         </div>
         <div class="mb-3">
-            <label class="form-check-label">Post Creator</label>
-            <input type="text" class="form-control" >
+            <select name="post_creator" class="form-control">
+                @foreach($users as $user)
+                    <option value="{{$user->id}}">{{$user->name}}</option>
+                @endforeach
+
+            </select>
 
         </div>
-                            {{-- <a href="{{route('posts.update', $post['id'])}}" class="btn btn-primary">Edit</a> --}}
+        {{-- <a href="{{route('posts.update', $post['id'])}}" class="btn btn-primary">Edit</a> --}}
 
         <button type="submit" class="btn btn-success">Submit</button>
     </form>

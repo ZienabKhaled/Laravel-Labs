@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
+use Carbon\Carbon;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,3 +30,5 @@ Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
  Route::get('/posts/{post}/edit', [PostController::class, 'edit'])->name('posts.update');
 
  Route::delete('/posts/{post}', [PostController::class, 'destroy'])->name('posts.destroy');
+
+//  Route::patch('/posts/{post}', [PostController::class, 'restore'])->name('posts.restore');
