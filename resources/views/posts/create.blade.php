@@ -3,8 +3,20 @@
 @section('title')Create @endsection
 
 @section('content')
+<div class="container">
+@if ($errors->any())
+<div class="alert alert-danger">
+    <ul>
+        @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+        @endforeach
+    </ul>
+</div>
+@endif
+
  <form method="POST" action="/posts">
         @csrf
+        
         <div class="mb-3">
             <label class="form-label">Title</label>
             <input name="title" type="text" class="form-control" >
@@ -29,4 +41,5 @@
 
         <button type="submit" class="btn btn-success">Submit</button>
     </form>
+</div>
 @endsection

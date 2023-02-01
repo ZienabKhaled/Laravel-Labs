@@ -5,6 +5,7 @@
 @section('content')
     <div class="text-center">
         <a href="{{ route('posts.create') }}" class="mt-4 btn btn-success">Create Post</a>
+        <a href="{{ route('posts.restore') }}" class="mt-4 btn btn-success">Trashed</a>
     </div>
     <div class="row d-flex">
         <div class="col-lg-12 col-md-9 col-sm-6">
@@ -14,6 +15,7 @@
                         <tr>
                             <th scope="col">#</th>
                             <th scope="col">Title</th>
+                            <th scope="col">Slug</th>
                             <th scope="col">Posted By</th>
                             <th scope="col">Created At</th>
                             <th scope="col">Actions</th>
@@ -24,6 +26,7 @@
                             <tr>
                                 <td>{{ $post->id }}</td>
                                 <td>{{ $post->title }}</td>
+                                <td>{{ $post->slug}}</td>
                                 <td>{{ $post->user->name ?? 'Not Found' }}</td>
                                 <td>{{ $post->created_at->format('20y-m-d') }}</td>
                                 <td>
@@ -38,8 +41,8 @@
                                         @else
                                             @method('DELETE')
                                         @endif
-                                        <input type="submit" data-bs-toggle="modal" data-bs-target="#myModal"
-                                            value=" Delete">
+                                        <input type="submit" data-bs-toggle="modal" class="btn btn-danger"
+                                            data-bs-target="#myModal" value="Delete">
                                     </form>
                                 </td>
                             </tr>
@@ -47,7 +50,11 @@
                     </tbody>
                 </table>
             </div>
+            <div>
+                {{ $posts->links() }}
+            </div>
         </div>
+    </div>
     </div>
     <div class="modal show" id="myModal" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered ">
@@ -64,20 +71,22 @@
         </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.6.3.slim.min.js"
-        integrity="sha256-ZwqZIVdD3iXNyGHbSYdsmWP//UBokj2FHAxKuSBKDSo=" crossorigin="anonymous"></script>
-    <script>
-        let deleteForm = document.querySelectorAll('.delete-post');
-        let confirmDelete = document.getElementById("modelConfirm")
-        deleteForm.forEach(form => {
-            form.addEventListener("submit", function(e) {
-                e.preventDefault();
-                $('#myModal').modal('show')
-                confirmDelete.addEventListener('click', function(e) {
-                    $('#myModal').modal('hide');
-                    form.submit()
-                })
+    integrity="sha256-ZwqZIVdD3iXNyGHbSYdsmWP//UBokj2FHAxKuSBKDSo=" crossorigin="anonymous"></script>
+<script>
+    let deleteForm = document.querySelectorAll('.delete-post');
+    let confirmDelete = document.getElementById("modelConfirm")
+    deleteForm.forEach(form => {
+        form.addEventListener("submit", function(e) {
+            e.preventDefault();
+            $('#myModal').modal('show')
+            confirmDelete.addEventListener('click', function(e) {
+                $('#myModal').modal('hide');
+                form.submit()
             })
-
-        });
-    </script>
+        })
+    });
+</script>
 @endsection
+
+
+

@@ -1,8 +1,11 @@
-<?php
+ <?php
+
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\CommentController;
 use Carbon\Carbon;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -16,19 +19,40 @@ use Carbon\Carbon;
 */
 
 Route::get('/', function () {
-    // return view('welcome');
+    return view('welcome');
 });
+
 
 Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
 
- Route::get('/posts/create', [PostController::class, 'create'])->name('posts.create');
+//group middleware
+Route::group(['middleware' => ['auth']], function () {
 
- Route::post('/posts', [PostController::class, 'store']);
+Route::get('/posts/create', [PostController::class, 'create'])->name('posts.create');
 
- Route::get('/posts/{post}', [PostController::class, 'show'])->name('posts.show');
+Route::post('/posts', [PostController::class, 'store']);
 
- Route::get('/posts/{post}/edit', [PostController::class, 'edit'])->name('posts.update');
+Route::get('/posts/{post}/edit', [PostController::class, 'edit'])->name('posts.update');
 
- Route::delete('/posts/{post}', [PostController::class, 'destroy'])->name('posts.destroy');
+Route::put('/posts/{post}', [PostController::class, 'update'])->name('posts.edit');
 
- Route::patch('/posts/{post}', [PostController::class, 'restore'])->name('posts.restore');
+Route::delete('/posts/{post}', [PostController::class, 'destroy'])->name('posts.destroy');
+
+Route::get('/posts/restore', [PostController::class, 'restore'])->name('posts.restore');
+
+Route::get('/posts/{post}/reback', [PostController::class, 'reback'])->name('posts.reback');
+
+Route::get('/posts/{post}', [PostController::class, 'show'])->name('posts.show');
+
+});
+
+//Comments
+Route::post('/posts/{post}/comment', [CommentController::class, 'store'])->name('comments.store');
+
+Route::get('/comments/{comment}/edit', [CommentController::class, 'edit'])->name('comments.edit');
+
+
+//auth
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
