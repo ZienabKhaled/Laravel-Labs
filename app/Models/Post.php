@@ -5,15 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Cviebrock\EloquentSluggable\Sluggable;
+
 
 class Post extends Model
 {
 
-    use HasFactory, SoftDeletes;
+    use HasFactory, SoftDeletes ;
+    use Sluggable;
 
     //slug
+
     protected $guarded = [];
 
     public function sluggable(): array
@@ -30,6 +33,7 @@ class Post extends Model
         'description',
         'post_creator',
         'slug',
+        'image',
         'user_id',
     ];
 

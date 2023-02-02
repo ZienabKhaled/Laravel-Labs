@@ -16,7 +16,7 @@
     @endif
 
     <div class="container">
-        <form method="POST" action="{{ route('posts.edit' , $post->id) }}">
+        <form method="POST" action="{{ route('posts.edit' , $post->id) }}" enctype="multipart/form-data">
             @csrf
             @method('PUT')
             <div class="mb-3" style="margin-top: 20px">
@@ -37,6 +37,7 @@
 
                 </select>
             </div>
+            <input class="form-control" type="file" name="image" >
 
             <button type="submit" class="btn btn-success">Update</button>
         </form>
