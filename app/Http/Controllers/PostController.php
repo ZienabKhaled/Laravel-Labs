@@ -7,6 +7,7 @@ use App\Http\Requests\UpdatePostRequest;
 use App\Models\User;
 use App\Models\Post;
 use Illuminate\Support\Facades\Storage;
+use  Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use App\Http\Controllers\Controller;
@@ -103,9 +104,10 @@ class PostController extends Controller
                 if ($request->exists('image')) {
                         /**upload image  */
                     $path = Storage::putFile('public', $request->file('image'));
+                    if($post->image){
                         /**delete old image*/
                         Storage::delete($post->image);
-                }
+                }}
                 else{
                     $path=null;
                 }

@@ -55,9 +55,9 @@
 
 
             {{-- card --}}
-            <h1>IM</h1>
-            <div class="card">
-                <img src="{{ $post->image }}" alt="" name="image">
+            <h1>Post image</h1>
+            <div >
+                <img src="{{ Storage::url($post->image) }}" alt="" name="image" style="height: 200px ; width:100%">
             </div>
         </div>
         </div>
