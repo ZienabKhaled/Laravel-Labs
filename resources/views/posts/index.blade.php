@@ -4,8 +4,7 @@
 @endsection
 @section('content')
     <div class="text-center">
-        <a href="{{ route('posts.create') }}" class="mt-4 btn btn-success">Create Post</a>
-        <a href="{{ route('posts.restore') }}" class="mt-4 btn btn-success">Trashed</a>
+        <a href="{{ route('posts.create') }}" class="mt-4 btn" style="color:#FAF8F1; background-color:#85586F">Create Post</a>
     </div>
     <div class="row d-flex">
         <div class="col-lg-12 col-md-9 col-sm-6">
@@ -30,8 +29,6 @@
                                 <td>{{ $post->user->name ?? 'Not Found' }}</td>
                                 <td>{{ $post->created_at->format('20y-m-d') }}</td>
                                 <td>
-                                    <a href="{{ route('posts.show', $post->id) }}" class="btn btn-info">View</a>
-                                    <a href="{{ route('posts.update', $post->id) }}" class="btn btn-primary">Edit</a>
 
                                     <form class="delete-post" action="{{ route('posts.destroy', $post->id) }}"
                                         method="POST">
@@ -41,7 +38,10 @@
                                         @else
                                             @method('DELETE')
                                         @endif
-                                        <input type="submit" data-bs-toggle="modal" class="btn btn-danger"
+                                        <a href="{{ route('posts.show', $post->id) }}" class="btn text-light fw-bold" style="background-color: #A0C3D2">View</a>
+                                        <a href="{{ route('posts.update', $post->id) }}" class="btn text-light fw-bold" style="background-color: #EAC7C7">Edit</a>
+
+                                        <input type="submit" data-bs-toggle="modal" class="btn text-light " style="background-color: #EB455F"
                                             data-bs-target="#myModal" value="Delete">
                                     </form>
                                 </td>
@@ -49,10 +49,12 @@
                         @endforeach
                     </tbody>
                 </table>
-            </div>
-            <div>
+
+            <div class="pt-3">
                 {{ $posts->links() }}
             </div>
+        </div>
+    </div>
         </div>
     </div>
     </div>

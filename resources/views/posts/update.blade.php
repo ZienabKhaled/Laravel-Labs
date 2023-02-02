@@ -15,31 +15,31 @@
         </div>
     @endif
 
-    <div class="container">
+    <div class="container" >
         <form method="POST" action="{{ route('posts.edit' , $post->id) }}" enctype="multipart/form-data">
             @csrf
             @method('PUT')
             <div class="mb-3" style="margin-top: 20px">
-                <label class="form-label">Title</label>
-                <input type="text" name="title" class="form-control" value="{{ $post->title }}">
+                <h4><label class="form-label fw-bold" style="color: #85586F">Title</label></h4>
+                <input type="text" name="title" class="form-control" style="width: 70%; height:40px" value="{{ $post->title }}">
             </div>
             <div class="mb-3">
-                <label class="form-label">Description</label>
-                <textarea class="form-control" name="description">{{ $post->description }}</textarea>
+                <h4><label class="form-label fw-bold" style="color: #85586F">Description</label></h4>
+                <textarea class="form-control" style="height: 100px" name="description">{{ $post->description }}</textarea>
             </div>
 
             <div class="mb-3">
-                <label class="form-label">Creator</label>
-                <select name="post_creator" class="form-control">
+                <h4><label class="form-label fw-bold" style="color: #85586F">Creator</label></h4>
+                <select name="post_creator" class="form-control"  style="width: 70%; height:40px">
                     @foreach ($users as $user)
-                        <option value="{{ $user->id }}">{{ $user->name }}</option>
+                        <option value="{{ $user->id }}" >{{ $user->name }}</option>
                     @endforeach
 
                 </select>
             </div>
-            <input class="form-control" type="file" name="image" >
+            <input class="form-control mb-3" type="file" name="image" >
 
-            <button type="submit" class="btn btn-success">Update</button>
+            <button type="submit" class="btn" style="background-color:#85586F;color:#FAF8F1;width:100%">Update</button>
         </form>
     </div>
 @endsection

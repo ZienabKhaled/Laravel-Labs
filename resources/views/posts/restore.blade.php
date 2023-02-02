@@ -28,7 +28,7 @@
                             <td>{{$post->updated_at}}</td>
                             <td>{{$post->deleted_at}}</td>
                             <td>
-                            <a href="{{ route('posts.reback', $post->id) }}" class="btn btn-success">
+                            <a href="{{ route('posts.reback', $post->id) }}" class="btn" style="color:#FAF8F1; background-color:#85586F">
                                Restore</a>
 
                             </td>

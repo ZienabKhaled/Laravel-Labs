@@ -3,14 +3,11 @@
     Show
 @endsection
 @section('content')
-    <div class="container">
-
-        <div class="container">
-            <div class="row">
+    {{-- <div class="row">
                 <div class="col">
                     <div class="card" style="margin-bottom: 50px; margin-top:20px;width:700px;">
-                        <div class="card-header">
-                            <h4>Post Info</h4>
+                        <div class="card-header" style="background-color: #85586F">
+                            <h4 >Post Info</h4>
                         </div>
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item"><label class="form-label" name="title">Title
@@ -35,36 +32,69 @@
                     </div>
                 </div>
 
-                {{--  Create a comment --}}
-                <div class="col">
-                    <form method="POST" action="{{ route('comments.store', $post->id) }}">
-                        @csrf
-                        <div class="mb-3">
 
-                            <h3><label class="form-label" style="color: green">Add Comment</label>
-                                <textarea class="form-control" placeholder="Add Your Comment" name="body"
-                                    style="width: 500px;
-                            height:100px;"></textarea>
-                            </h3>
-                        </div>
-                        <button type="submit" class=" btn btn-outline-success">Post Your Comment</button>
-                    </form>
 
 
 
 
 
             {{-- card --}}
-            <h1>Post image</h1>
+    {{-- <h1>Post image</h1>
             <div >
                 <img src="{{ Storage::url($post->image) }}" alt="" name="image" style="height: 200px ; width:100%">
             </div>
         </div>
+
+        </div> --}}
+    <div class="container">
+        <center>
+            <div class="row">
+                <div class="col">
+                    <div class="card mb-3 mt-3 " style="width: 80% ">
+                        <div class="row g-0">
+                            <div>
+                                @if ($post->image)
+                                    <img src="{{ Storage::url($post->image) }}" class="img-fluid rounded-start rounded-0"
+                                        style="height: 350px ; width:100%">
+                                @endif
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body" style="text-align: left">
+                                    <h2 class="card-title fw-bold">{{ $post->title ?? 'Not Found' }}</h2>
+                                    <hr>
+                                    <p class="card-text">{{ $post->description ?? 'Not Found' }}.</p>
+                                    <p class="card-text">{{ $post->user->name ?? 'Not Found' }}<small class="text-muted ">
+                                            {{ $post->created_at ? $post->created_at->format('jS \o\f F, Y g:i:s a') : 'NULL' }}</small>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </center>
+        {{--  Create a comment --}}
+        <div class="col">
+            <form method="POST" action="{{ route('comments.store', $post->id) }}">
+                @csrf
+                <div class="mb-3">
+
+                    <h3><label class="form-label" style="color: green">Add Comment</label>
+                        <textarea class="form-control" placeholder="Add Your Comment" name="body"
+                            style="width: 500px;
+            height:100px;"></textarea>
+                    </h3>
+                </div>
+                <button type="submit" class=" btn btn-outline-success">Post Your Comment</button>
+            </form>
         </div>
-        </div>
-        {{-- Show the comment in the same page --}}
-        <h1>Post Comments</h1>
-        @foreach ($post->comments as $comment)
+    </div>
+    {{-- Show the comment in the same page --}}
+    @foreach ($post->comments as $comment)
+        @if ($post->comments)
+            <h1>Post Comments</h1>
             <div class="accordion">
                 <div class="accordion-item">
                     <h2 class="accordion-header">
@@ -83,5 +113,7 @@
                     </div>
                 </div>
             </div>
-        @endforeach
-    @endsection
+            </div>
+        @endif
+    @endforeach
+@endsection

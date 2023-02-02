@@ -31,7 +31,7 @@ class PostController extends Controller
         //         Date::now()->subDays(365*2)
         //     ));
 
-        $allPosts = Post::paginate(4);
+        $allPosts = Post::paginate(6);
         return view('posts.index',[
             'posts' => $allPosts ,
         ]);
