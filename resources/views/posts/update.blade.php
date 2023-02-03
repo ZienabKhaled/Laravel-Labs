@@ -38,8 +38,9 @@
                 </select>
             </div>
             <input class="form-control mb-3" type="file" name="image" >
-
-            <button type="submit" class="btn" style="background-color:#85586F;color:#FAF8F1;width:100%">Update</button>
+<center>
+            <button type="submit" class="btn" style="background-color:#85586F;color:#FAF8F1;width:40%">Update</button>
+</center>
         </form>
     </div>
 @endsection

@@ -42,9 +42,10 @@
             </div>
             {{-- <a href="{{route('posts.update', $post['id'])}}" class="btn btn-primary">Edit</a> --}}
             <input class="form-control mb-3" type="file" name="image">
-
-            <button type="submit" class="btn fs-6" style="background-color:#85586F;color:#FAF8F1;width:100%">Create Post
+<center>
+            <button type="submit" class="btn fs-6 " style="background-color:#85586F;color:#FAF8F1;width:40% ">Create Post
                 !</button>
+            </center>
         </form>
     </div>
 @endsection
