@@ -21,6 +21,6 @@ Laravel has the most extensive and thorough [documentation](https://laravel.com/
 First make sure You download Composer: https://getcomposer.org/ .
 I used these packages;
 <ul>
-    <li>[Laravel ui](https://github.com/laravel/ui)</li>
+    <li> Laravel ui : https://github.com/laravel/ui </li>
     <li>Eloquent-Sluggable : https://github.com/cviebrock/eloquent-sluggable</li>
     </ul>
