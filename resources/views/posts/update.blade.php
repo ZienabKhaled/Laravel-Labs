@@ -25,7 +25,7 @@
             </div>
             <div class="mb-3">
                 <h4><label class="form-label fw-bold" style="color: #85586F">Description</label></h4>
-                <textarea class="form-control" style="height: 100px" name="description">{{ $post->description }}</textarea>
+                <textarea class="form-control" style=" width:80%; height: 100px" name="description">{{ $post->description }}</textarea>
             </div>
 
             <div class="mb-3">

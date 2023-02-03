@@ -23,6 +23,9 @@ Route::get('/', function () {
 });
 
 
+
+//posts
+
 Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
 
 //group middleware

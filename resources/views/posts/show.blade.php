@@ -17,10 +17,11 @@
                             </li>
                     </div>
 
+
+                    @if ($post->comments)
+                        @foreach ($post->comments as $comment)
+
                     <div class="card" style="margin-bottom: 50px;width: 700px">
-                        <div class="card-header">
-                            <h4>Post Creator Info</h4>
-                        </div>
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item"><label class="form-label" name="name">Name
                                     :-{{ $post->user->name ?? 'Not Found' }}</label><br>
@@ -30,13 +31,11 @@
                                     :-{{ $post->created_at ? $post->created_at->format('jS \o\f F, Y g:i:s a') : 'NULL' }}</label>
                             </li>
                     </div>
+                    @endforeach
+                    @endif
+
+
                 </div>
-
-
-
-
-
-
 
             {{-- card --}}
     {{-- <h1>Post image</h1>
@@ -47,73 +46,62 @@
 
         </div> --}}
     <div class="container">
+
         <center>
+            <div class="card mb-3 mt-3 " style="width: 80% ">
+                <div class="row g-0">
+                    <div>
+                        @if ($post->image)
+                            <img src="{{ Storage::url($post->image) }}" class="img-fluid rounded-start rounded-0"
+                                style="height: 350px ; width:100%">
+                        @endif
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body" style="text-align: left">
+                            <h2 class="card-title fw-bold" style="color:#85586F">{{ $post->title ?? 'Not Found' }}</h2>
+                            <hr>
+                            <p class="card-text">{{ $post->description ?? 'Not Found' }}.</p>
+                            <p class="card-text">{{ $post->user->name ?? 'Not Found' }}<small class="text-muted ">
+                                    {{ $post->created_at ? $post->created_at->format('jS \o\f F, Y g:i:s a') : 'NULL' }}</small>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {{-- Display all the comments --}}
             <div class="row">
                 <div class="col">
-                    <div class="card mb-3 mt-3 " style="width: 80% ">
-                        <div class="row g-0">
-                            <div>
-                                @if ($post->image)
-                                    <img src="{{ Storage::url($post->image) }}" class="img-fluid rounded-start rounded-0"
-                                        style="height: 350px ; width:100%">
-                                @endif
+                    @if ($post->comments)
+                        {{-- <h1 style="color:#85586F; text-align:left">Post Comments</h1> --}}
+                        @foreach ($post->comments as $comment)
+                            <div class="card mb-2" style="width: 80%">
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item">
+                                        <label class="form-label"><h4>Comment #{{ $comment->id }}</h4><hr><strong>{{ $comment->body }}</strong><br>
+
+                                            {{ $post->user->name }}, {{ $comment->created_at->format('20y-m-d') }}
+                                            </label>
+                                        <br>
+
+                                    </li>
+                                </ul>
                             </div>
-                            <div class="col-md-8">
-                                <div class="card-body" style="text-align: left">
-                                    <h2 class="card-title fw-bold">{{ $post->title ?? 'Not Found' }}</h2>
-                                    <hr>
-                                    <p class="card-text">{{ $post->description ?? 'Not Found' }}.</p>
-                                    <p class="card-text">{{ $post->user->name ?? 'Not Found' }}<small class="text-muted ">
-                                            {{ $post->created_at ? $post->created_at->format('jS \o\f F, Y g:i:s a') : 'NULL' }}</small>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                        @endforeach
+                    @endif
+                {{--  Create a comment --}}
+                <div class="col">
+                <form method="POST" action="{{ route('comments.store', $post->id) }}">
+                    @csrf
+                    <textarea class="form-control" placeholder="Add Your Thoughts ..." name="body"
+                        style="width: 70%;
+            height:100px; border-color:#85586F"></textarea>
+                    <button type="submit" class=" btn mt-2 text-light"
+                        style="width:70%; border-color:#85586F ; background-color:#85586F">Post Your Comment</button>
+                </form>
             </div>
-
-
-        </center>
-        {{--  Create a comment --}}
-        <div class="col">
-            <form method="POST" action="{{ route('comments.store', $post->id) }}">
-                @csrf
-                <div class="mb-3">
-
-                    <h3><label class="form-label" style="color: green">Add Comment</label>
-                        <textarea class="form-control" placeholder="Add Your Comment" name="body"
-                            style="width: 500px;
-            height:100px;"></textarea>
-                    </h3>
-                </div>
-                <button type="submit" class=" btn btn-outline-success">Post Your Comment</button>
-            </form>
-        </div>
+            {{-- </div> --}}
     </div>
-    {{-- Show the comment in the same page --}}
-    @foreach ($post->comments as $comment)
-        @if ($post->comments)
-            <h1>Post Comments</h1>
-            <div class="accordion">
-                <div class="accordion-item">
-                    <h2 class="accordion-header">
-                        <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                            <h5>Comment #{{ $comment->id }}</h5>
-                        </button>
-                    </h2>
-                    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
-                        data-bs-parent="#accordionExample">
-                        <div class="accordion-body">
-                            <strong>Posted at {{ $comment->created_at->format('20y/m/d') }}.</strong>
-                            {{ $comment->body }}
-                        </div>
-                        {{-- <a href="{{ route('posts.show', $comment->id) }}" class="btn btn-primary">Edit</a> --}}
-                    </div>
-                </div>
-            </div>
-            </div>
-        @endif
-    @endforeach
+    </center>
+    </div>
 @endsection

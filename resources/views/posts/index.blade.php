@@ -5,6 +5,8 @@
 @section('content')
     <div class="text-center">
         <a href="{{ route('posts.create') }}" class="mt-4 btn" style="color:#FAF8F1; background-color:#85586F">Create Post</a>
+       
+
     </div>
     <div class="row d-flex">
         <div class="col-lg-12 col-md-9 col-sm-6">

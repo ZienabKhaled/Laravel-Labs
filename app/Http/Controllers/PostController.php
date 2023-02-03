@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
-// use App\Jobs\PruneOldPostsJob;
+use App\Jobs\PruneOldPostsJob;
 use App\Models\User;
 use App\Models\Post;
 use Illuminate\Support\Facades\Storage;
@@ -25,12 +25,13 @@ class PostController extends Controller
 /**1)display all posts in db*/
     public function index()
     {
-        //prune jobs
-        // dispatch(
-        //     new PruneOldPostsJob (
-        //         Date::now()->subDays(365*2)
-        //     ));
+       // prune jobs
+        dispatch(
+            new PruneOldPostsJob (
+                Date::now()->subDays(365*2)
+            ));
 
+// dd(request()->input('search'));
         $allPosts = Post::paginate(6);
         return view('posts.index',[
             'posts' => $allPosts ,
