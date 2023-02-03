@@ -16,3 +16,10 @@ Laravel is a web application framework with expressive, elegant syntax. We belie
 Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
 
 
+##Get Started
+First make sure You download [Composer] (https://getcomposer.org/).
+I used these packages;
+<ul>
+    <li>[Laravel ui](https://github.com/laravel/ui) </li>
+    <li> [Eloquent-Sluggable] (https://github.com/cviebrock/eloquent-sluggable)</li>
+    </ul>
