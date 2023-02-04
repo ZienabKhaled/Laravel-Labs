@@ -12,7 +12,7 @@ use Cviebrock\EloquentSluggable\Sluggable;
 class Post extends Model
 {
 
-    use HasFactory, SoftDeletes ;
+    use HasFactory, SoftDeletes;
     use Sluggable;
 
     //slug
@@ -46,8 +46,5 @@ class Post extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function test()
-    {
-        return $this->belongsTo(User::class, 'user_id');
-    }
+ 
 }
