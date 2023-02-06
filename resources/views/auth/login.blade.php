@@ -39,6 +39,7 @@
                             </div>
                         </div>
 
+
                         <div class="row mb-3">
                             <div class="col-md-6 offset-md-4">
                                 <div class="form-check">
@@ -63,6 +64,11 @@
                                     </a>
                                 @endif
                             </div>
+                        </div>
+                        <div>
+                            {{-- <a href="{{ route('githublogin') }}">Sign In with Github</a> --}}
+                            <a href="{{ route('googlelogin') }}"> Sign In with Google</a>
+
                         </div>
                     </form>
                 </div>

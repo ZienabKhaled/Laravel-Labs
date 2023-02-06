@@ -9,11 +9,11 @@ use App\Models\Post;
 use Illuminate\Support\Facades\Storage;
 use  Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Laravel\Socialite\Facades\Socialite;
 use Carbon\Carbon;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Date;
-
-
 use App\Models\Comment;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -22,6 +22,61 @@ use DB;
 
 class PostController extends Controller
 {
+    public function githubredirect(Request $request)
+    {
+        return Socialite::driver('github')->redirect();
+    }
+
+    public function githubcallback(Request $request)
+    {
+        $userdata = Socialite::driver('github')->user();
+        $user = User::where('email', $userdata->email)->where('auth_type','github')->first();
+        if (!$user) {
+            $uuid=Str::uuid()->toString();
+            $user = new User();
+            $user->name = $userdata->name;
+            $user->email = $userdata->email;
+            $user->password = Hash::make($uuid.now());
+            $user->auth_type = 'github';
+            $user->save();
+            Auth::login($user);
+            return redirect('/home');
+            }
+
+        else{
+
+            Auth::login($user);
+            return redirect('/home');
+        }
+    }
+
+    public function googleredirect(Request $request)
+    {
+        return Socialite::driver('google')->redirect();
+    }
+
+    public function googlecallback(Request $request)
+    {
+        $userdata = Socialite::driver('google')->user();
+        $user = User::where('email', $userdata->email)->where('auth_type','google')->first();
+        if (!$user) {
+            $uuid=Str::uuid()->toString();
+            $user = new User();
+            $user->name = $userdata->name;
+            $user->email = $userdata->email;
+            $user->password = Hash::make($uuid.now());
+            $user->auth_type = 'google';
+            $user->save();
+            Auth::login($user);
+            return redirect('/home');
+            }
+
+        else{
+            Auth::login($user);
+            return redirect('/home');
+        }
+    }
+
     public function index()
     {
         dispatch(
@@ -29,7 +84,7 @@ class PostController extends Controller
                 Date::now()->subDays(365*2)
             ));
 
-        $allPosts = Post::paginate(6);
+        $allPosts = Post::with('user')->paginate(6);
         return view('posts.index',[
             'posts' => $allPosts ,
         ]);
@@ -51,12 +106,7 @@ class PostController extends Controller
 
     public function store( StorePostRequest $request)
     {
-        $request->validate([
-            'title'=>['required','min:3','unique:posts,title'],
-            'description'=>['required','min:10'],
-         ]);
         //  dd($request->all());
-
          $path = Storage::putFile('public', $request->file('image'));
         $data = $request->all();
         $title = $data['title'];
@@ -81,13 +131,6 @@ class PostController extends Controller
 
     public function update($postId, UpdatePostRequest $request)
         {
-            //validation
-            // $request->validate([
-            //     'title'=>['required','min:3','unique:posts,title,'. $postId],
-            //     'description'=>['required','min:10'],
-            //     'user_id'=>[Rule::in('post_creator','user_id')],
-            // ]);
-
                 $newPost = request()->all();
                 $post = Post::find($postId);
                 if ($request->exists('image')) {
@@ -102,10 +145,7 @@ class PostController extends Controller
                 $post->title = $newPost['title'];
                 $post->description = $newPost['description'];
                 $post->image = $path;
-
                 $post->save();
-
-
                 return redirect()->route('posts.index',['post' => $postId]);
 
         }

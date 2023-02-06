@@ -3,6 +3,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
+use App\Models\User;
 use App\Http\Controllers\CommentController;
 use Carbon\Carbon;
 
@@ -51,11 +52,38 @@ Route::get('/posts/{post}', [PostController::class, 'show'])->name('posts.show')
 
 //Comments
 Route::post('/posts/{post}/comment', [CommentController::class, 'store'])->name('comments.store');
-
-Route::get('/comments/{comment}/edit', [CommentController::class, 'edit'])->name('comments.edit');
+// Route::get('/comments/{comment}/edit', [CommentController::class, 'edit'])->name('comments.edit');
 
 
 //auth
 Auth::routes();
-
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+//Socialite
+// Route::get('/auth/redirect',[PostController::class,'githubredirect'])->name('githublogin');
+// Route::get('/auth/callback',[PostController::class,'githubcallback']);
+
+Route::get('/auth/redirect',[PostController::class,'googleredirect'])->name('googlelogin');
+Route::get('/auth/callback',[PostController::class,'googlecallback']);
+
+
+// use Laravel\Socialite\Facades\Socialite;
+
+// Route::get('/auth/redirect', function () {
+//     return Socialite::driver('github')->redirect();
+// });
+
+// Route::get('/auth/callback', function () {
+//     $user = Socialite::driver('github')->user();
+// // dd($user);
+// });
+
+// Route::get('/auth/google/redirect', function () {
+//     return Socialite::driver('google')->redirect();
+// });
+
+// Route::get('/auth/callback', function () {
+//     $user = Socialite::driver('github')->user();
+// });
+
